@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PGP Tool - Machine Locked</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-lock"></i> Machine-Locked PGP Tool</h1>
+      <p class="subtitle">Secure, hardware-locked encryption for this computer only</p>
+    </header>
+    
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="keys">Keys</button>
+      <button class="tab-btn" data-tab="encrypt">Encrypt</button>
+      <button class="tab-btn" data-tab="decrypt">Decrypt</button>
+      <button class="tab-btn" data-tab="about">About</button>
+    </div>
+    
+    <main>
+      <!-- Keys Tab -->
+      <section id="keys" class="tab-content active">
+        <div id="key-status-loading">
+          <p><i class="fas fa-spinner fa-spin"></i> Checking for existing keys...</p>
+        </div>
+        
+        <div id="key-exists" style="display: none;">
+          <div class="success-box">
+            <i class="fas fa-check-circle"></i>
+            <p>You have a PGP key pair generated on this machine.</p>
+          </div>
+          
+          <div class="public-key-container">
+            <h3>Your Public Key</h3>
+            <p class="info">Share this with others so they can encrypt messages for you:</p>
+            <div class="code-box">
+              <pre id="public-key-display"></pre>
+            </div>
+            <button id="copy-key" class="btn"><i class="fas fa-copy"></i> Copy Public Key</button>
+          </div>
+        </div>
+        
+        <div id="no-keys" style="display: none;">
+          <div class="warning-box">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>No PGP keys found. Generate a new key pair to get started.</p>
+          </div>
+          
+          <form id="generate-keys-form">
+            <div class="form-group">
+              <label for="name">Your Name:</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Your Email:</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="passphrase">Secure Passphrase:</label>
+              <input type="password" id="passphrase" name="passphrase" required>
+              <p class="form-hint">This passphrase will be required to decrypt messages. Choose a strong one and don't forget it!</p>
+            </div>
+            
+            <button type="submit" class="btn primary"><i class="fas fa-key"></i> Generate Keys</button>
+          </form>
+        </div>
+      </section>
+      
+      <!-- Encrypt Tab -->
+      <section id="encrypt" class="tab-content">
+        <h2><i class="fas fa-lock"></i> Encrypt Message</h2>
+        <p class="info">Encrypt a message using someone else's public key.</p>
+        
+        <form id="encrypt-form">
+          <div class="form-group">
+            <label for="recipient-key">Recipient's Public Key:</label>
+            <textarea id="recipient-key" name="recipientPublicKey" rows="6" required></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Message to Encrypt:</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+          </div>
+          
+          <button type="submit" class="btn primary"><i class="fas fa-lock"></i> Encrypt Message</button>
+        </form>
+        
+        <div id="encrypted-result" style="display: none;">
+          <h3>Encrypted Message</h3>
+          <div class="code-box">
+            <pre id="encrypted-message-display"></pre>
+          </div>
+          <button id="copy-encrypted" class="btn"><i class="fas fa-copy"></i> Copy Encrypted Message</button>
+        </div>
+      </section>
+      
+      <!-- Decrypt Tab -->
+      <section id="decrypt" class="tab-content">
+        <h2><i class="fas fa-unlock"></i> Decrypt Message</h2>
+        <p class="info">Decrypt a message that was encrypted for you.</p>
+        
+        <div id="decrypt-warning" style="display: none;">
+          <div class="warning-box">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>You need to generate keys first before you can decrypt messages.</p>
+            <button class="btn small switch-tab" data-tab="keys">Go to Keys</button>
+          </div>
+        </div>
+        
+        <form id="decrypt-form">
+          <div class="form-group">
+            <label for="encrypted-message">Encrypted Message:</label>
+            <textarea id="encrypted-message" name="encryptedMessage" rows="8" required></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="decrypt-passphrase">Your Passphrase:</label>
+            <input type="password" id="decrypt-passphrase" name="passphrase" required>
+          </div>
+          
+          <button type="submit" class="btn primary"><i class="fas fa-unlock"></i> Decrypt Message</button>
+        </form>
+        
+        <div id="decrypted-result" style="display: none;">
+          <h3>Decrypted Message</h3>
+          <div class="message-box">
+            <pre id="decrypted-message-display"></pre>
+          </div>
+        </div>
+      </section>
+      
+      <!-- About Tab -->
+      <section id="about" class="tab-content">
+        <h2><i class="fas fa-info-circle"></i> About This Tool</h2>
+        
+        <div class="info-card">
+          <h3>Machine-Locked PGP</h3>
+          <p>This tool provides secure PGP encryption and decryption that is locked to this specific computer's hardware.</p>
+          <p>Your private key is bound to your computer's unique hardware ID, making it impossible to use your keys on any other device.</p>
+        </div>
+        
+        <div class="feature-list">
+          <h3>Security Features</h3>
+          <ul>
+            <li><i class="fas fa-microchip"></i> <strong>Hardware Binding</strong> - Keys only work on this computer</li>
+            <li><i class="fas fa-key"></i> <strong>4096-bit RSA</strong> - Strong encryption protection</li>
+            <li><i class="fas fa-lock"></i> <strong>Passphrase Protection</strong> - Additional security layer</li>
+            <li><i class="fas fa-shield-alt"></i> <strong>Machine Fingerprinting</strong> - Uses multiple hardware identifiers</li>
+          </ul>
+        </div>
+        
+        <div class="warning-box">
+          <i class="fas fa-exclamation-triangle"></i>
+          <p><strong>Important:</strong> If you try to use your private key on another computer, it will not work. This is by design to prevent unauthorized use.</p>
+        </div>
+      </section>
+    </main>
+    
+    <div id="notification" class="notification">
+      <div class="notification-content">
+        <i id="notification-icon"></i>
+        <span id="notification-message"></span>
+      </div>
+    </div>
+    
+    <footer>
+      <p>Machine-Locked PGP Tool &copy; <span id="current-year"></span></p>
+    </footer>
+  </div>
+  
+  <script src="/js/app.js"></script>
+</body>
+</html> 
