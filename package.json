@@ -1,21 +1,27 @@
 {
-  "name": "pgp",
+  "name": "ignis-pgp",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "ui": "node server.js"
+    "ui": "node server.js",
+    "setup:win": "powershell -ExecutionPolicy Bypass -File setup.ps1",
+    "setup:unix": "bash setup.sh",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "dev": "nodemon server.js"
   },
   "keywords": [
     "pgp",
     "encryption",
     "decryption",
     "security",
-    "email"
+    "email",
+    "machine-locked"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "Ignis AI Labs",
+  "license": "MIT",
   "description": "Machine-locked PGP encryption tool for secure email communications",
   "dependencies": {
     "ejs": "^3.1.9",
@@ -23,5 +29,17 @@
     "fs-extra": "^11.3.0",
     "node-machine-id": "^1.1.12",
     "openpgp": "^6.1.0"
-  }
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "nodemon": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ignis-AI-Labs/ignis-pgp.git"
+  },
+  "private": false
 }

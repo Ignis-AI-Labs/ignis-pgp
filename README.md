@@ -1,4 +1,4 @@
-# Machine-Locked PGP Tool
+# Ignis PGP - Machine-Locked Encryption Tool
 
 A simple PGP encryption/decryption tool that is locked to the specific computer it's generated on. This tool ensures that encrypted messages can only be decrypted on the original machine.
 
@@ -22,53 +22,94 @@ A simple PGP encryption/decryption tool that is locked to the specific computer 
 
 - Node.js 12.0.0 or higher
 - npm (Node Package Manager)
+- Python 3.8 or higher (for virtual environment)
 
 ## Installation
 
-1. Clone this repository:
-   ```
-   git clone [repository-url]
-   cd pgp
-   ```
+### Quick Setup (Recommended)
 
-2. Install dependencies:
-   ```
-   npm install
-   ```
+We provide setup scripts that create a virtual environment and install all dependencies:
+
+For Windows:
+```powershell
+# Clone the repository
+git clone https://github.com/Ignis-AI-Labs/ignis-pgp.git
+cd ignis-pgp
+
+# Run the setup script
+.\setup.ps1
+```
+
+For Unix-based systems (Linux, macOS):
+```bash
+# Clone the repository
+git clone https://github.com/Ignis-AI-Labs/ignis-pgp.git
+cd ignis-pgp
+
+# Run the setup script
+./setup.sh
+```
+
+### Manual Setup
+
+If you prefer to set up manually:
+
+```bash
+# Clone the repository
+git clone https://github.com/Ignis-AI-Labs/ignis-pgp.git
+cd ignis-pgp
+
+# Install dependencies
+npm install
+```
 
 ## Usage
 
-### Web Interface (Recommended)
+### With Virtual Environment (Recommended)
 
-Run the web UI with:
+After setting up, run the tool using the provided run scripts:
 
+For Windows:
+```powershell
+.\run.ps1 ui    # Start the web UI
+.\run.ps1 start # Start the CLI
+.\run.ps1 dev   # Start the development server with auto-reload
 ```
+
+For Unix-based systems:
+```bash
+./run.sh ui     # Start the web UI
+./run.sh start  # Start the CLI
+./run.sh dev    # Start the development server with auto-reload
+```
+
+### Without Virtual Environment
+
+If you've installed dependencies manually:
+
+```bash
+# Start the web UI
 npm run ui
+
+# Start the command-line interface
+npm run start
 ```
 
-Then open your browser to http://localhost:3000
+### Web Interface
 
-The web interface provides an intuitive way to:
+The web interface runs at http://localhost:3000 and provides an intuitive way to:
 - Generate and manage your keys
 - Encrypt messages for others
 - Decrypt messages sent to you
 - View information about the tool
 
-### Command Line Interface
-
-If you prefer a command-line interface:
-
-```
-npm start
-```
-
-### First-time setup
+### First-time Setup
 
 1. Generate your keys by completing the form
 2. Enter your name, email, and a secure passphrase
 3. Your public key will be displayed - you can share this with others who want to send you encrypted messages
 
-### Encrypting messages
+### Encrypting Messages
 
 1. Switch to the "Encrypt" tab
 2. Paste the recipient's public key
@@ -76,7 +117,7 @@ npm start
 4. Click "Encrypt Message"
 5. Copy the encrypted message and send it to your recipient
 
-### Decrypting messages
+### Decrypting Messages
 
 1. Switch to the "Decrypt" tab
 2. Paste the encrypted message
@@ -99,4 +140,12 @@ The tool creates a unique fingerprint of your computer using:
 - Computer hostname
 - User account details
 
-This fingerprint is stored and verified each time you decrypt a message, ensuring only the original computer can decrypt messages. 
+This fingerprint is stored and verified each time you decrypt a message, ensuring only the original computer can decrypt messages.
+
+## Development
+
+For those interested in contributing to the project, please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines and development setup instructions.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
